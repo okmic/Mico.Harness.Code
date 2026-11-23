@@ -11,3 +11,5 @@
 Скоро. Превью: [okmic.github.io/Mico.Harness.Code](https://okmic.github.io/Mico.Harness.Code/)
 
 Node.js, TypeScript, Go. Без фреймворков, только прямые вызовы API.
+
+# © Декабрь 2026 Mico.Harness.Code
