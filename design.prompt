@@ -1,0 +1,172 @@
+DESIGN_PROMPT — Landing «Вайб-кодинг дал суперсилу»
+ИИ-агент: модель vs harness. Анонс технического туториала.
+
+ВАЖНО ПРО ПРИОРИТЕТЫ
+Если инструкции конфликтуют, главнее тот блок, который выше.
+Порядок силы: 1) Стек и запреты, 2) Палитра и правила цвета, 3) Структура секций, 4) Остальное.
+При сомнении выбирай более строгий вариант, не добавляй ничего от себя.
+
+1. СТЕК
+React 18, TypeScript strict, Vite, Tailwind CSS 3.4, lucide-react.
+Запрещено: UI-библиотеки (MUI, Chakra, shadcn), CSS-in-JS, styled-components, любые анимационные библиотеки.
+Иконки только lucide-react, stroke 1.5.
+
+2. СТИЛЬ КОДА (ЖЁСТКО)
+Точка с запятой не используется ни в TS, ни в CSS.
+Отступ 2 пробела.
+Кавычки одинарные в TS, двойные в JSX-атрибутах.
+Длина строки до 100 символов.
+Экспорт компонентов именованный, default только для страниц.
+Пропсы через type, не interface. Никаких any. Неизвестное — unknown с сужением.
+Один компонент — один файл, имя файла равно имени компонента.
+Порядок в компоненте: типы, константы, хуки состояния, производные значения, обработчики, return JSX.
+Tailwind-классы в порядке: layout, spacing, typography, color, state, responsive.
+Условные классы только через clsx или шаблонную строку, без конкатенации плюсом.
+Inline-стили запрещены, кроме передачи CSS-переменных.
+Комментарии только «почему», не «что». Без комментариев-очевидностей.
+
+3. КРИТЕРИИ ОТРЕФАКТОРЕННОГО КОДА (ИЗМЕРИМО)
+Функция не длиннее 40 строк. Компонент не длиннее 120 строк.
+Глубина вложенности JSX не больше 4, иначе выносить в подкомпонент.
+Дублирование строк больше одного раза запрещено, тексты в lib/content.ts, темы в lib/topics.ts.
+Магические числа и цвета запрещены, только токены Tailwind.
+Нет неиспользуемых импортов и переменных.
+Хуки только на верхнем уровне, без условий.
+Списки с стабильным key по id, не по индексу.
+useMemo и useCallback только при реальной необходимости.
+
+4. ПАЛИТРА (единственный источник правды)
+Каждая строка — роль, токен, HEX, где применять.
+
+Фон базовый, bg-base, #0B0C0F, body и основной фон.
+Фон приподнятый, bg-raised, #0F1116, чередующиеся секции.
+Поверхность, surface, #121419, карточки.
+Поверхность hover, surface-hover, #181B22, hover карточек.
+Граница, border, #1F232C, разделители и границы карточек.
+Граница сильная, border-strong, #2A2F3A, активные и hover-состояния.
+Текст основной, text-primary, #ECEEF3, заголовки и тело.
+Текст вторичный, text-secondary, #A7AEBD, лиды и подзаголовки.
+Текст приглушённый, text-muted, #8B92A3, мета, подписи, футер.
+Акцент янтарь, accent, #FFB35C, CTA, номера тем, harness в схеме.
+Акцент soft, accent-soft, #3A2A14, фон бейджей, подложка harness.
+Холодный синий, cool, #6FA8FF, модель в схеме, текстовые ссылки.
+Холодный soft, cool-soft, #1C2A44, подложка модели.
+Опасность, danger, #FF6B6B, блок «опасно», пример инъекции.
+Опасность soft, danger-soft, #33191B, фон danger-блока.
+Успех, success, #7BD88F, блок «что делать».
+Успех soft, success-soft, #16302A, фон success-блока.
+
+5. ПРАВИЛА ПРИМЕНЕНИЯ ЦВЕТА (ЖЁСТКО)
+Янтарь только CTA, номера тем 01–04, harness в схеме. Не для мелкого текста.
+Красный только блок «опасно» и пример инъекции, один раз на странице.
+Зелёный только чек-лист «что делать».
+Синий только модель в схеме и текстовые ссылки.
+Всё остальное графит и текст. Ноль декоративного цвета.
+Запрещено: градиенты между акцентами, неоновое свечение текста, цветной текст мельче 18px.
+
+6. ШРИФТЫ
+Заголовки Sora 700, h1 56–72px, h2 40–48px, h3 24–28px, tracking -0.02em, line-height 1.1–1.2.
+Текст Inter 400 и 500, 17–18px, line-height 1.65.
+Мелкий текст Inter 400 и 500, 14–15px, line-height 1.5, цвет text-muted.
+Код и термины IBM Plex Mono 500, 14px, для harness и prompt injection.
+Номера тем IBM Plex Mono 500, 14px, цвет accent, tracking 0.05em.
+Подключение через @fontsource или self-host, font-display swap. Google Fonts CDN запрещён.
+
+7. ФОНЫ
+База bg-base без градиентов.
+Hero — тонкая сетка 32px, opacity 0.025, только в hero, через псевдоэлемент, не картинкой.
+Секции чередуются bg-base, bg-raised, bg-base, без резких швов.
+Карточки surface с border 1px, тень только на hover.
+Запрещено: радиальные свечения, шум-текстуры, паттерны кроме сетки в hero.
+
+8. ТЕНИ, РАДИУСЫ, ОТСТУПЫ
+Радиус карточки 16px, кнопки 12px, бейджа 999px.
+Тень карточки 0 1px 0 rgba(255,255,255,0.03) inset.
+Тень hover 0 8px 24px rgba(0,0,0,0.30).
+Тень focus 0 0 0 3px rgba(255,179,92,0.35).
+Вертикальный padding секций 96–128px на десктопе, 64px на мобильном.
+Контейнер max-width 1120px, горизонтальный padding 24px мобильный, 32px десктоп.
+Сетка карточек gap 24px.
+
+9. КОНТРАСТ
+Тело текста не ниже 4.5 к 1.
+Крупный текст от 24px не ниже 3 к 1.
+CTA-кнопка заливка accent, текст bg-base, не ниже 7 к 1.
+Янтарный текст только от 18px и вес 600 и выше, никогда мелкий.
+
+10. СТРУКТУРА СТРАНИЦЫ (СВЕРХУ ВНИЗ)
+Hero: H1, подзаголовок, CTA primary и secondary, микро-подпись, сетка на фоне.
+Problem: три карточки с иконками Wand, KeyRound, AlertTriangle.
+AgentDiagram: модель, harness, действия, ядро страницы.
+Topics: четыре карточки 01–04, цвета accent, danger, text-muted, success.
+DangerBlock: пример промпт-инъекции, фрагмент HTML с подсветкой.
+CostCompare: две колонки, готовый harness и свой на 150 строк.
+ChecklistPreview: пять пунктов, превью.
+SignupForm: email и кнопка, состояния idle, loading, success, error.
+Footer: хэштеги, соцссылки, копирайт.
+
+11. КОМПОНЕНТЫ
+ui: Button с вариантами primary, secondary, ghost, size md и lg. Card. Badge. SectionTitle с eyebrow, title, lead. CodeSnippet.
+sections: Hero, ProblemCards, AgentDiagram, Topics, DangerBlock, CostCompare, ChecklistPreview, SignupForm, Footer.
+Все пропсы типизированы, any запрещён, экспорт именованный.
+
+12. ЭТАЛОННЫЙ КОМПОНЕНТ (соблюдай этот стиль)
+
+Button.tsx
+тип ButtonProps: variant primary, secondary, ghost по умолчанию primary, size md и lg по умолчанию md, children React.ReactNode, плюс React.ButtonHTMLAttributes<HTMLButtonElement>.
+Классы primary: bg-accent text-bg-base hover:brightness-105.
+Классы secondary: bg-surface text-text-primary border border-border hover:bg-surface-hover.
+Классы ghost: text-text-secondary hover:text-text-primary.
+Focus-visible: shadow-focus outline-none.
+Active: scale-[0.98].
+Условные классы только через cn из lib/cn.ts.
+
+13. СОСТОЯНИЯ И ИНТЕРАКТИВ
+Форма: idle, loading, success, error. Валидация email на blur и submit.
+Кнопки: hover brightness +8 процентов, focus-visible ring accent, active scale 0.98, disabled opacity 0.5.
+Плавный скролл к секциям, отключается при prefers-reduced-motion.
+Появление секций fade-up на IntersectionObserver, без библиотек, отключается при prefers-reduced-motion.
+
+14. АДАПТИВ
+Mobile-first. Брейкпоинты Tailwind sm 640, md 768, lg 1024, xl 1280.
+Схема агента вертикально на mobile, горизонтально на md и выше.
+CostCompare одна колонка на mobile, две на md и выше.
+Hero H1 36px mobile, 56px md, 72px lg.
+
+15. ДОСТУПНОСТЬ
+Контраст по пункту 9.
+Все интерактивные элементы доступны с клавиатуры, focus-visible обязателен.
+Alt и aria для схем и иконок, декоративные иконки aria-hidden.
+prefers-reduced-motion отключает fade-up и smooth scroll.
+
+16. ПРОИЗВОДИТЕЛЬНОСТЬ
+Только Tailwind и lucide-react.
+Шрифты self-host, display swap, preload для Sora 700 и Inter 400.
+SVG инлайн или оптимизированы, тяжёлых изображений нет.
+Анимации только transform и opacity, не влияют на layout.
+
+17. ТЕКСТЫ
+Заголовки из утверждённого анонса, дословно.
+Микротексты короткие, без канцелярита.
+CTA: «Подписаться на выход», «Что внутри», «Оставить почту».
+Двоеточия в длинных предложениях не используются.
+
+18. ЧЕГО ИЗБЕГАТЬ
+Стоковые роботы и мозги.
+Неон и глассморфизм ради глассморфизма.
+Двоеточия в длинных предложениях.
+Пафос и менторство.
+Перегруз эмодзи.
+Градиенты между акцентами, цветной мелкий текст.
+Тени на карточках без hover.
+Асимметрия ради асимметрии, шум-текстуры.
+
+19. ПОРЯДОК ВЫДАЧИ (ЧТО СГЕНЕРИРОВАТЬ ПЕРВЫМ)
+1. tailwind.config.ts с токенами из пунктов 4, 6, 8.
+2. src/styles/globals.css с @tailwind и @layer base.
+3. src/lib/cn.ts.
+4. src/components/ui/Button.tsx как эталон.
+5. src/components/sections/Hero.tsx.
+6. src/components/sections/AgentDiagram.tsx.
+Дальше остальные секции по структуре из пункта 10.
+Не генерируй футер раньше hero. Не добавляй секции, которых нет в пункте 10.
