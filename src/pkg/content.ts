@@ -35,15 +35,13 @@ export const actions = {
 
 export const author = {
   name: 'Mico',
-  role: 'Инженер. Пишет Mico.Harness',
+  role: 'Инженер. Пишет Mico.Harness.Code',
   links: [
-    { label: 'CV Node.js', href: 'https://okmic.github.io/nodejs_backend_devoloper_cv/' },
-    { label: 'CV Go', href: 'https://okmic.github.io/go_cv' },
-    { label: 'Проекты', href: 'https://okmic.github.io/MicoProjects/' },
     { label: 'Обо мне', href: 'https://okmic.github.io/MicoEngineer/' },
+    { label: 'Mico', href: 'https://okmic.github.io/Mico' },
   ],
 } as const
 
 export const footer = {
-  copyright: '© 2026 Mico.Harness.Code',
+  copyright: '© Декабрь 2026 Mico.Harness.Code',
 } as const
